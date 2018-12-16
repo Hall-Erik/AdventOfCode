@@ -42,11 +42,43 @@ def its_go_time(line: str) -> int:
             return size
         line = tmp
 
+def remove_units(line: str) -> dict:
+    '''
+    Removes units from the string.
+    Returns a dict with removed unitsin lower case
+    as keys (a, b, c...) and the string with those
+    units removed as values.
+    '''
+    removed_lines = {}
+
+    for i in range(0, len(string.ascii_lowercase)):
+        tmp = line.replace(string.ascii_lowercase[i], '')
+        tmp = tmp.replace(string.ascii_uppercase[i], '')
+        removed_lines[string.ascii_lowercase[i]] = tmp
+
+    return removed_lines
+
+def go_with_removed_units(line: str) -> int:
+    '''
+    Removes each unit from the line and searches each
+    case for the best result.
+    Returns the length of the smallest result.
+    '''
+    removed_lines = remove_units(line)
+    smallest = 9999999
+    for unit in removed_lines:
+        size = its_go_time(removed_lines[unit])
+        if size < smallest:
+            smallest = size
+    return smallest
+
 assert its_go_time('aA') == 0
 assert its_go_time('abBA') == 0
 assert its_go_time('abAB') == 4
 assert its_go_time('aabAAB') == 6
 assert its_go_time('dabAcCaCBAcCcaDA') == 10
 
-print(its_go_time(line))
-# 9288
+assert go_with_removed_units('dabAcCaCBAcCcaDA') == 4
+
+print(go_with_removed_units(line))
+# 5844
