@@ -1,38 +1,41 @@
-from collections import Counter
+from collections import Counter, deque
 
 line = ''
-output = []
 
 with open('input.txt', 'r') as f:
     line = f.readline().strip('\n')
 
-def its_go_time(players, last_marble):
-    l = [0]
-    cm = 0
-    index = 0
+def move_left(d: deque, times: int=2):
+    for i in range(times):
+        d.append(d.popleft())
+
+def move_right(d: deque, times: int=7):
+    for i in range(times):
+        d.appendleft(d.pop())
+
+def play_game(players, last_marble):
+    output = deque([0])
     scores = Counter()
-    for cm in range(1, last_marble+1):
-        if cm%1000 == 0:
-            print(f'marble: {cm}')
-        player = (cm-1)%players+1
-        index = (index + 1)%len(l)+1
+    for cm in range(1, last_marble):
         if cm%23 == 0:
-            index = (index - 10)%len(l)+1
-            popped = l.pop(index)
-            scores[player] += cm + popped
+            move_right(output)
+            player = (cm-1)%players+1
+            popped = output.popleft()
+            scores[player] += popped + cm
+            # print(player, popped, cm)
         else:
-            l[index:index] = [cm]
+            move_left(output)
+            output.appendleft(cm)
     return scores
 
-assert its_go_time(9, 25).most_common()[0][1] == 32
-assert its_go_time(10, 1618).most_common()[0][1] == 8317
-assert its_go_time(13, 7999).most_common()[0][1] == 146373
-assert its_go_time(17, 1104).most_common()[0][1] == 2764
-assert its_go_time(21, 6111).most_common()[0][1] == 54718
-assert its_go_time(30, 5807).most_common()[0][1] == 37305
+assert play_game(9, 25).most_common()[0][1] == 32
+assert play_game(10, 1618).most_common()[0][1] == 8317
+assert play_game(13, 7999).most_common()[0][1] == 146373
+assert play_game(21, 6111).most_common()[0][1] == 54718
+assert play_game(30, 5807).most_common()[0][1] == 37305
 
 line = line.split(' ')
 
-scores = its_go_time(int(line[0]), int(line[-2])*100)
-print(scores.most_common(3))
-# 33183301184
+scores = play_game(int(line[0]), int(line[-2])*100)
+print(scores.most_common(1)[0][1])
+# 3183301184
