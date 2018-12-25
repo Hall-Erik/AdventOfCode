@@ -11,13 +11,13 @@ def its_go_time(players, last_marble):
     index = 0
     scores = Counter()
     for cm in range(1, last_marble+1):
-        player = (cm-1)%players+1
-        index = (index + 1)%len(l)+1
+        player = (cm-1)%players+1        
         if cm%23 == 0:
-            index = (index - 10)%len(l)+1
+            index = (index - 7)%len(l)
             popped = l.pop(index)
             scores[player] += cm + popped
         else:
+            index = (index + 1)%len(l)+1
             l[index:index] = [cm]
     return scores
 
