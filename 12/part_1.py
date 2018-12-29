@@ -37,18 +37,19 @@ def run_rules(state:str, rules:dict) -> str:
     return ''.join(tmp)
 
 def count_generations(state:str, rules:dict, generations:int=20) -> int:
-    state = pad_state(state, generations)
+    offset = 20
+    state = pad_state(state, offset)
 
     for i in range(generations):
-        print(i, state)
+        if state.find('#') < 10 or len(state) - state.rfind('#') < 10:
+            offset += 20
+            state = pad_state(state, 20)
         state = run_rules(state, rules)
         
-    print(generations, state)
-
     total = 0
     for i in range(len(state)):
         if state[i] == '#':
-            total += i-(2*generations)
+            total += i-(2*offset)
     return total
 
 test_state = '#..#.#..##......###...###'
@@ -100,8 +101,9 @@ test_states = [
 for i in range(len(test_states)-1):
     assert run_rules(test_states[i], test_rules) == test_states[i+1]
 
-state = rules[0][15:].strip('\n')
-rules = build_rules(rules[2:])
+if __name__ == '__main__':
+    state = rules[0][15:].strip('\n')
+    rules = build_rules(rules[2:])
 
-print(count_generations(state, rules, 20))
-# 1917
+    print(count_generations(state, rules, 20))
+    # 1917
