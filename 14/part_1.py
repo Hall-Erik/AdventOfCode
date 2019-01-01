@@ -1,4 +1,3 @@
-test_input = 9
 puzzle_input = 825401
 
 def print_recipes(recipes, one, two):
@@ -36,7 +35,7 @@ def find_ten_good_recipes(tries:int=9) -> str:
         # print_recipes(recipes, one, two)
     return ''.join([str(r) for r in recipes[tries:tries+10]])
 
-assert find_ten_good_recipes(test_input) == '5158916779'
+assert find_ten_good_recipes(9) == '5158916779'
 assert find_ten_good_recipes(5) == '0124515891'
 assert find_ten_good_recipes(18) == '9251071085'
 assert find_ten_good_recipes(2018) == '5941429882'
