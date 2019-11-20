@@ -1,5 +1,4 @@
 import json
-from collections.abc import Iterable
 
 def add_nums(d) -> int:
     if isinstance(d, int): return d
