@@ -1,1 +1,2 @@
 defaultlist==1.0.0
+-e git+https://github.com/Hall-Erik/AdventOfCode2018.git@5b8bd1c35b4746bc296c73990345d6839791e59c#egg=intcode&subdirectory=2019\intcode
