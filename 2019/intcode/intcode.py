@@ -95,7 +95,7 @@ class Comp:
         self.ic[loc] = p1 + p2
         self.pos += 4
 
-    def run_program(self, i:object):
+    def run_program(self, i:object=None):
         if i: self.put(i)
         while self.pos < len(self.ic):
             s = str(self.ic[self.pos])

@@ -38,12 +38,16 @@ def count_visible(map_dict:dict, position:tuple) -> int:
     slopes = set(slopes)
     return len(slopes)
 
+def get_best_station(map_dict:dict):
+    return max([(p, count_visible(map_dict, p)) for p in map_dict], key=lambda x: x[1])
+
 if __name__ == '__main__':
     with open('input.txt', 'r') as f:
         map_list = f.readlines()
     map_list = [row.replace('\n', '') for row in map_list]
     map_dict = dictify(map_list)
-    print(max([count_visible(map_dict, p) for p in map_dict]))
+    print(get_best_station(map_dict))
+    # print(max([count_visible(map_dict, p) for p in map_dict]))
 
     test_map = [
         '.#..#',
