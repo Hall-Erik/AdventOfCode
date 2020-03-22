@@ -19,5 +19,11 @@ namespace _01
             Assert.Equal(3, Program.GetCardinal(0, 'L'));
             Assert.Equal(0, Program.GetCardinal(3, 'R'));
         }
+
+        [Fact]
+        public void FirstRepeatTest()
+        {
+            Assert.Equal(4, Program.FindFirstRepeat(new string[] {"R8", "R4", "R4", "R8"}));
+        }
     }
 }
