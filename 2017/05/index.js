@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { interfaces } = require('mocha');
 
 const Maze = require('./maze');
 
