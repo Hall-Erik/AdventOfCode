@@ -9,4 +9,3 @@ console.log(`${batch.countValid()} passports are valid.`);
 
 batchWithExtraValidation = new Batch(batchFile, true);
 console.log(`${batchWithExtraValidation.countValid()} passports are really valid.`);
-// 110 too low
