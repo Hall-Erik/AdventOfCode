@@ -7,3 +7,6 @@ const program = fs.readFileSync('input.txt', 'utf-8');
 const loader = new Loader(program);
 loader.runProgram();
 console.log(`acc = ${loader.acc}`);
+
+loader.fixRunProgram();
+console.log(`fixed program acc = ${loader.acc}`);

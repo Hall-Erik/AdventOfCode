@@ -22,4 +22,10 @@ describe('Tests', () => {
         loader.runProgram();
         loader.acc.should.eql(5);
     });
+
+    it('acc should be 8 when program is fixed', () => {
+        const loader = new Loader(testInput);
+        loader.fixRunProgram();
+        loader.acc.should.eql(8);
+    });
 });
