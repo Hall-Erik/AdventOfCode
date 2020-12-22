@@ -34,17 +34,8 @@ class Ship {
         this._y -= Number(amount);
     }
 
-    get cardinal() {
-        switch (this._heading) {
-            case 0:
-                return 'E';
-            case 90:
-                return 'S';
-            case 180:
-                return 'W';
-            default:
-                return 'N';
-        }
+    forward(amount) {
+        this.move(this.cardinal + amount);
     }
 
     move(direction) {
@@ -68,8 +59,21 @@ class Ship {
                 this.south(amount);
                 break;
             case 'F':
-                this.move(this.cardinal + amount);
+                this.forward(amount);
                 break;
+        }
+    }
+
+    get cardinal() {
+        switch (this._heading) {
+            case 0:
+                return 'E';
+            case 90:
+                return 'S';
+            case 180:
+                return 'W';
+            default:
+                return 'N';
         }
     }
 
