@@ -2,22 +2,13 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strings"
 	"unicode/utf8"
+
+	"github.com/Hall-Erik/AdventOfCode/2022/file"
 )
 
 var pl = fmt.Println
-
-func readLines(file string) []string {
-	data, err := ioutil.ReadFile(file)
-	if err != nil {
-		panic(err)
-	}
-	lines := strings.Split(string(data), "\n")
-
-	return lines
-}
 
 func getCompartments(bag string) (string, string) {
 	length := utf8.RuneCountInString(bag)
@@ -94,7 +85,7 @@ func main() {
 
 	pl()
 
-	bags := readLines("input.txt")
+	bags := file.ReadLines("input.txt")
 	pl("Part 1: ", part1(bags))
 
 	pl()

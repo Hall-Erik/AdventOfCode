@@ -2,21 +2,12 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strings"
+
+	"github.com/Hall-Erik/AdventOfCode/2022/file"
 )
 
 var pl = fmt.Println
-
-func ReadLines(file string) []string {
-	data, err := ioutil.ReadFile(file)
-	if err != nil {
-		panic(err)
-	}
-	lines := strings.Split(string(data), "\n")
-
-	return lines
-}
 
 func findStart(s string, distinct int) int {
 	index := 0
@@ -52,7 +43,7 @@ func main() {
 		pl(test, loc, messageLoc)
 	}
 
-	signal := ReadLines("input.txt")[0]
+	signal := file.ReadLines("input.txt")[0]
 	loc := findStart(signal, 4)
 	messageLoc := findStart(signal, 14)
 

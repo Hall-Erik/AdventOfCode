@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"github.com/Hall-Erik/AdventOfCode/2022/file"
 )
 
 var pl = fmt.Println
@@ -12,16 +13,6 @@ var pl = fmt.Println
 type Assignment struct {
 	min int
 	max int
-}
-
-func readLines(file string) []string {
-	data, err := ioutil.ReadFile(file)
-	if err != nil {
-		panic(err)
-	}
-	lines := strings.Split(string(data), "\n")
-
-	return lines
 }
 
 func getAssignment(section string) Assignment {
@@ -122,7 +113,7 @@ func main() {
 	pl(selfContainedPairs)
 
 	pl()
-	pairs := readLines("input.txt")
+	pairs := file.ReadLines("input.txt")
 	selfContainedPairs = part1(pairs)
 	pl(selfContainedPairs)
 

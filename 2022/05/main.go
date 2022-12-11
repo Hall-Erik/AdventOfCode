@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"github.com/Hall-Erik/AdventOfCode/2022/file"
 )
 
 type stack []string
@@ -31,16 +32,6 @@ func (s stack) PopMulti(i int) (stack, []string) {
 }
 
 var pl = fmt.Println
-
-func ReadLines(file string) []string {
-	data, err := ioutil.ReadFile(file)
-	if err != nil {
-		panic(err)
-	}
-	lines := strings.Split(string(data), "\n")
-
-	return lines
-}
 
 func buildTestStacks() map[string]stack {
 	/*
@@ -148,7 +139,7 @@ func main() {
 	pl("Part 1", "\nTests\n", result)
 
 	stacks := buildStacks()
-	moves := ReadLines("input.txt")
+	moves := file.ReadLines("input.txt")
 	result = part1(stacks, moves)
 	pl("\nResults:\n", result)
 
