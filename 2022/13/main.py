@@ -94,8 +94,6 @@ def sort_items(pairs: list) -> int:
 def run_tests():
     test_lines = read_lines("testInput.txt")
     test_pairs = collect_pairs(test_lines)
-    
-    # Tests
     assert compare_vals(*test_pairs[0]) == Comparison.PASS
     assert compare_vals(*test_pairs[1]) == Comparison.PASS
     assert compare_vals(*test_pairs[2]) == Comparison.FAIL
