@@ -1,0 +1,128 @@
+﻿using System.Text.RegularExpressions;
+
+namespace Day3;
+
+public class Num(string n, int x, int y, Dictionary<string, string> parts)
+{
+    readonly int x0 = x;
+    readonly int x1 = x + n.Length - 1;
+    readonly int y = y;
+    public readonly int val = int.Parse(n);
+    readonly string n = n;
+
+    private readonly Dictionary<string, string> parts = parts;
+
+    private List<string> FindNeighbors()
+    {
+        List<string> neighbors = [];
+        for (int x = x0; x <= x1; x++ )
+        {
+            neighbors.Add($"{x-1},{y-1}");
+            neighbors.Add($"{x},{y-1}");
+            neighbors.Add($"{x+1},{y-1}");
+            neighbors.Add($"{x-1},{y}");
+            neighbors.Add($"{x+1},{y}");
+            neighbors.Add($"{x-1},{y+1}");
+            neighbors.Add($"{x},{y+1}");
+            neighbors.Add($"{x+1},{y+1}");
+        }
+        return neighbors;
+    }
+
+    public bool IsPart()
+    {
+        foreach (string neighbor in FindNeighbors())
+        {
+            if (parts.ContainsKey(neighbor))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public override string ToString()
+    {
+        return n + ": at x=" + x0 + "-" + x1 + ", y=" + y + " len=" + n.Length + " " + IsPart();
+    }
+}
+
+public class Program
+{
+    public static List<Num> FindNums(string[] lines, Dictionary<string, string> parts)
+    {
+        string pattern = @"\d+";
+        Regex regex = new(pattern);
+        List<Num> nums = [];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string line = lines[i];
+            MatchCollection matches = regex.Matches(line);
+            foreach (Match match in matches.Cast<Match>())
+            {
+                Num num = new(match.Value, match.Index, i, parts);
+                nums.Add(num);
+            }
+        }
+        return nums;
+    }
+
+    public static Dictionary<string, string> FindSyms(string[] lines)
+    {
+        string pattern = @"[^\d.]";
+        Regex regex = new(pattern);
+        Dictionary<string, string> parts = [];
+        for (int i = 0; i < lines.Length; i++)
+        {
+            string line = lines[i];
+            MatchCollection matches = regex.Matches(line);
+            foreach (Match match in matches.Cast<Match>())
+            {
+                parts[match.Index + "," + i] = match.Value;
+            }
+        }
+        return parts;
+    }
+
+    public static int Part1(string[] lines)
+    {
+        Dictionary<string, string> parts = FindSyms(lines);
+        List<Num> nums = FindNums(lines, parts);
+        int sum = 0;
+        foreach (var num in nums)
+        {
+            if (num.IsPart())
+            {
+                sum += num.val;
+            }
+        }
+        return sum;
+    }
+
+    public static void Main(string[] args)
+    {
+        string[] testLines = [
+            "467..114..",
+            "...*......",
+            "..35..633.",
+            "......#...",
+            "617*......",
+            ".....+.58.",
+            "..592.....",
+            "......755.",
+            "...$.*....",
+            ".664.598..",
+        ];
+        int sum = Part1(testLines);
+        Console.WriteLine(sum);
+        string[] lines = GetLinesFromFile("input.txt");
+        sum = Part1(lines);
+        Console.WriteLine(sum); // 498559
+        
+    }
+
+    static string[] GetLinesFromFile(string path)
+    {
+        return File.ReadAllLines(path);
+    }
+}
