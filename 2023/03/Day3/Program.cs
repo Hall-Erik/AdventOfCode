@@ -2,15 +2,44 @@
 
 namespace Day3;
 
-public class Num(string n, int x, int y, Dictionary<string, string> parts)
+public class Num
 {
-    readonly int x0 = x;
-    readonly int x1 = x + n.Length - 1;
-    readonly int y = y;
-    public readonly int val = int.Parse(n);
-    readonly string n = n;
+    readonly int x0;
+    readonly int x1;
+    readonly int y;
+    public readonly int val;
+    readonly string n;
 
-    private readonly Dictionary<string, string> parts = parts;
+    public readonly bool IsPart;
+    public readonly bool IsGear;
+
+    public readonly string partPos;
+
+    private readonly Dictionary<string, string> parts;
+
+    public Num(string n, int x, int y, Dictionary<string, string> parts)
+    {
+        x0 = x;
+        x1 = x + n.Length - 1;
+        this.y = y;
+        val = int.Parse(n);
+        this.n = n;
+        this.parts = parts;
+
+        bool IsPart = false;
+        string partPos = "";
+        foreach (string neighbor in FindNeighbors())
+        {
+            if (parts.TryGetValue(neighbor, out string? value))
+            {
+                IsPart = true;
+                partPos = neighbor;
+                IsGear = value == "*";
+            }
+        }
+        this.partPos = partPos;
+        this.IsPart = IsPart;
+    }
 
     private List<string> FindNeighbors()
     {
@@ -29,21 +58,9 @@ public class Num(string n, int x, int y, Dictionary<string, string> parts)
         return neighbors;
     }
 
-    public bool IsPart()
-    {
-        foreach (string neighbor in FindNeighbors())
-        {
-            if (parts.ContainsKey(neighbor))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public override string ToString()
     {
-        return n + ": at x=" + x0 + "-" + x1 + ", y=" + y + " len=" + n.Length + " " + IsPart();
+        return n + ": at x=" + x0 + "-" + x1 + ", y=" + y + " len=" + n.Length + " " + IsPart;
     }
 }
 
@@ -91,9 +108,42 @@ public class Program
         int sum = 0;
         foreach (var num in nums)
         {
-            if (num.IsPart())
+            if (num.IsPart)
             {
                 sum += num.val;
+            }
+        }
+        return sum;
+    }
+
+    public static int Part2(string[] lines)
+    {
+        Dictionary<string, string> parts = FindSyms(lines);
+        List<Num> nums = FindNums(lines, parts);
+        Dictionary<string, int> gearNumCount = [];
+        Dictionary<string, int> gearRatios = [];
+        int sum = 0;
+        foreach (Num num in nums)
+        {
+            if (num.IsGear)
+            {
+                int curr = gearNumCount.GetValueOrDefault(num.partPos, 0);
+                gearNumCount[num.partPos] = curr + 1;
+            }
+        }
+        foreach (var pair in gearNumCount)
+        {
+            if (pair.Value == 2)
+            {
+                int curr = 1;
+                foreach (Num num in nums)
+                {
+                    if (num.partPos == pair.Key)
+                    {
+                        curr *= num.val;
+                    }
+                }
+                sum += curr;
             }
         }
         return sum;
@@ -114,11 +164,14 @@ public class Program
             ".664.598..",
         ];
         int sum = Part1(testLines);
-        Console.WriteLine(sum);
+        Console.WriteLine("Part 1 Test: " + sum);
         string[] lines = GetLinesFromFile("input.txt");
         sum = Part1(lines);
-        Console.WriteLine(sum); // 498559
-        
+        Console.WriteLine("Part 1: " + sum); // 498559
+        sum = Part2(testLines);
+        Console.WriteLine("Part 2 Test: " + sum);
+        sum = Part2(lines);
+        Console.WriteLine("Part 2: " + sum);
     }
 
     static string[] GetLinesFromFile(string path)
