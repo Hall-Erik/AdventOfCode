@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Day20;
+namespace Day19;
 
 public class Rule
 {
