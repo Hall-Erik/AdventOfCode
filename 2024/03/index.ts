@@ -11,7 +11,7 @@ async function main() {
   result = lines
     .map((l) => c.processConditionally(l))
     .reduce((acc, cur) => acc + cur, 0);
-  console.log('Part 2:', result); // 102631226 too high
+  console.log('Part 2:', result);
 }
 
 main();
