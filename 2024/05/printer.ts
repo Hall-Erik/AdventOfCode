@@ -64,7 +64,7 @@ export class Printer {
 
   public getInvalidMPNTotal() {
     return this.getFixInvalidUpdates()
-        .map((u) => u[(u.length - 1) / 2])
-        .reduce((acc, curr) => acc + curr, 0);
+      .map((u) => u[(u.length - 1) / 2])
+      .reduce((acc, curr) => acc + curr, 0);
   }
 }

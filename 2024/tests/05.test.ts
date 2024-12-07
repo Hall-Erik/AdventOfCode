@@ -58,7 +58,7 @@ describe('Day 05', () => {
     });
 
     test('total should be 123', () => {
-        expect(p.getInvalidMPNTotal()).toBe(123);
+      expect(p.getInvalidMPNTotal()).toBe(123);
     });
   });
 });
