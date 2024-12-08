@@ -9,7 +9,7 @@ interface GuardPos {
 }
 
 interface Visited {
-    [key: string]: 'l' | 'r' | 'u' | 'd';
+  [key: string]: 'l' | 'r' | 'u' | 'd';
 }
 
 export class Map {
@@ -68,7 +68,7 @@ export class Map {
     }
 
     if (extraObst) {
-        this._obstacles[extraObst] = '#';
+      this._obstacles[extraObst] = '#';
     }
   }
 
@@ -124,13 +124,13 @@ export class Map {
       this._done = true;
       return;
     }
-    
+
     const stringPos = [x, y].join(',');
 
     if (this._visited[stringPos] === this._guard.facing) {
-        this._isLoop = true;
-        this._done = true;
-        return;
+      this._isLoop = true;
+      this._done = true;
+      return;
     }
 
     if (this._obstacles[stringPos] === '#') {
@@ -151,7 +151,7 @@ export class Map {
   }
 
   public getTotalVisited() {
-    return Object.keys(this._visited).length;    
+    return Object.keys(this._visited).length;
   }
 
   public getVisited() {
@@ -171,7 +171,7 @@ export class Map {
           s += 'G';
           continue;
         }
-        if (!!this._visited[stringPos]) {
+        if (this._visited[stringPos]) {
           s += 'X';
           continue;
         }
@@ -188,20 +188,20 @@ export class Map {
 }
 
 export class Maps {
-    private _allMaps: Map[] = [];
+  private _allMaps: Map[] = [];
 
-    constructor(lines: string[]) {
-        const initialMap = new Map(lines);
-        initialMap.moveUntilOOB();
-        const options = initialMap.getVisited();
-        this._allMaps = options.map((o) => {
-            const m = new Map(lines, o);
-            m.moveUntilOOB();
-            return m;
-        });
-    }
+  constructor(lines: string[]) {
+    const initialMap = new Map(lines);
+    initialMap.moveUntilOOB();
+    const options = initialMap.getVisited();
+    this._allMaps = options.map((o) => {
+      const m = new Map(lines, o);
+      m.moveUntilOOB();
+      return m;
+    });
+  }
 
-    public getTotalPossibleLoops() {
-        return this._allMaps.filter(m => m.isLoop()).length;
-    }
+  public getTotalPossibleLoops() {
+    return this._allMaps.filter((m) => m.isLoop()).length;
+  }
 }

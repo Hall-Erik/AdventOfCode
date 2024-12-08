@@ -25,9 +25,9 @@ describe('Day 06', () => {
 
   describe('Part 2', () => {
     test('6 possible loops', () => {
-        const map = new Maps(lines);
-        // ...
-        expect(map.getTotalPossibleLoops()).toBe(6);
-    })
+      const map = new Maps(lines);
+      // ...
+      expect(map.getTotalPossibleLoops()).toBe(6);
+    });
   });
 });
