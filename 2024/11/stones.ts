@@ -36,6 +36,9 @@ export class Stones {
   }
 
   public getStoneCount(numBlinks: number): number {
-    return this._stones.reduce((acc, curr) => this.blink(numBlinks, curr) + acc, 0);
+    return this._stones.reduce(
+      (acc, curr) => this.blink(numBlinks, curr) + acc,
+      0,
+    );
   }
 }
