@@ -12,3 +12,9 @@ export async function readLines(filename: string) {
   lines.pop();
   return lines;
 }
+
+export async function readFile(filename: string) {
+  let file = '';
+  file = (await fs.readFile(filename, { encoding: 'utf-8' })).trim();
+  return file;
+}
