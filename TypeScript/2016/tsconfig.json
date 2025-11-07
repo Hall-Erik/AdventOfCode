@@ -13,6 +13,6 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "nodenext",
     "outDir": "./build",
-    "rootDir": "./",
-  },
+    "rootDir": "./"
+  }
 }
