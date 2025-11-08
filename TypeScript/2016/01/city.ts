@@ -12,7 +12,7 @@ export class City {
     stopAtDup: boolean = false,
   ) {
     this._visited.add(coordsToKey(this._x, this._y));
-    for (let i of instructions) {
+    for (const i of instructions) {
       this.followInstruction(i, stopAtDup);
       if (this._done) break;
     }
