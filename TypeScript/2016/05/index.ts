@@ -37,7 +37,7 @@ function hack2(input: string) {
 
   let times = 0;
   let i = 0;
-  let code = ['', '', '', '', '', '', '', ''];
+  const code = ['', '', '', '', '', '', '', ''];
 
   while (times < 8) {
     const hash = MD5(input + i).toString();
