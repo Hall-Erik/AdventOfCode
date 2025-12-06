@@ -33,7 +33,7 @@ export class Warehouse {
   }
 
   private removeRolls(rolls: number[][]) {
-    for (let [x, y] of rolls) {
+    for (const [x, y] of rolls) {
       if (this.isPager(x, y)) {
         this.lines[y][x] = '.';
       }
