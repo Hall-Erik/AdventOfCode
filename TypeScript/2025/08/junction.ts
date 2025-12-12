@@ -82,7 +82,7 @@ export class Circuits {
     }
 
     const circuits = new Map<number, number>();
-    for (let b of boxesFiltered) {
+    for (const b of boxesFiltered) {
       const circuit = b.circuit;
       const curr = circuits.get(circuit) ?? 0;
       circuits.set(circuit, curr + 1);
