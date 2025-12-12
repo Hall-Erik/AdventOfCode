@@ -11,12 +11,12 @@ export class Manifold {
     let queue = [lines[0].indexOf('S')];
     for (let i = 1; i < this.height; i++) {
       let line = lines[i];
-      let nextQueue = new Set<number>();
+      const nextQueue = new Set<number>();
       while (queue.length > 0) {
         const beam = queue.shift()!;
         if (line.charAt(beam) === '^') {
           this.splits++;
-          for (let b of [beam - 1, beam + 1]) {
+          for (const b of [beam - 1, beam + 1]) {
             if (b >= 0 && b < this.width) {
               nextQueue.add(b);
             }
@@ -37,7 +37,7 @@ export class Manifold {
 
   public toString(): string {
     let s = '';
-    for (let line of this.lines) {
+    for (const line of this.lines) {
       s += line + '\n';
     }
     return s;
@@ -56,10 +56,10 @@ export class QuantumManifold {
     timelines.set(lines[0].indexOf('S'), 1);
     for (let i = 1; i < this.height; i++) {
       const line = lines[i];
-      let rowTimeline = new Map<number, number>();
-      for (let [beam, count] of timelines.entries()) {
+      const rowTimeline = new Map<number, number>();
+      for (const [beam, count] of timelines.entries()) {
         if (line.charAt(beam) === '^') {
-          for (let b of [beam - 1, beam + 1]) {
+          for (const b of [beam - 1, beam + 1]) {
             if (b >= 0 && b < this.width) {
               rowTimeline.set(b, (rowTimeline.get(b) || 0) + count);
             }
